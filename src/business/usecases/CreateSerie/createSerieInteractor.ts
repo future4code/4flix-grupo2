@@ -35,3 +35,5 @@ export interface CreateSerieInput {
     picture: string,
     episodes: Episode[]
 };
+
+//comentário para adicionar um pr novo 

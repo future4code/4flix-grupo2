@@ -32,3 +32,5 @@ export interface CreateMovieInput {
     link: string,
     picture: string
 };
+
+//comentário para adicionar um pr novo 
