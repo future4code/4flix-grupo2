@@ -1,6 +1,7 @@
 import { Movie } from './../../entities/Movie';
 import { MovieGateway } from './../../gateways/MovieGateway';
-import {generateRandomId} from '../../utils/generateRandomId';
+import { generateRandomId } from '../../utils/generateRandomId';
+import { MissingInformationError } from '../../entities/error/missingInformationError';
 
 export class CreateMovieInteractor {
     private movieGateway: MovieGateway
@@ -10,16 +11,26 @@ export class CreateMovieInteractor {
     };
 
     async execute(input: CreateMovieInput) {
-        try {
-            const movie = new Movie(generateRandomId(), input.title, input.date, input.lenght, input.synopsis, input.link, input.picture);
 
-            await this.movieGateway.saveMovie(movie)
-            const response = "Filme cadastrado com sucesso!"
+        const movie = new Movie(generateRandomId(), input.title, input.date, input.lenght, input.synopsis, input.link, input.picture);
 
-            return response
-        } catch (e) {
-            return e
-        };
+        if (!input.id ||
+            !input.title ||
+            !input.date ||
+            !input.lenght ||
+            !input.link ||
+            !input.picture ||
+            !input.synopsis
+            ) {
+            return new MissingInformationError();
+        }
+
+        await this.movieGateway.saveMovie(movie)
+
+        const response = "Filme cadastrado com sucesso!"
+
+        return response
+
     };
 };
 
@@ -32,5 +43,3 @@ export interface CreateMovieInput {
     link: string,
     picture: string
 };
-
-//comentário para adicionar um pr novo 

@@ -2,6 +2,7 @@ import { CreateMovieInteractor, CreateMovieInput } from './createMovieInteractor
 import { Movie } from '../../entities/Movie';
 import { MovieGateway } from '../../gateways/MovieGateway';
 import { generateRandomId } from '../../utils/generateRandomId';
+import { MissingInformationError } from '../../entities/error/missingInformationError';
 
 
 test("testing execute function", async () => {
@@ -12,7 +13,7 @@ test("testing execute function", async () => {
     };
 
     const useCase = new CreateMovieInteractor(movieGateway)
-    const input: CreateMovieInput = { 
+    const input: CreateMovieInput = {
         id: generateRandomId(),
         title: "Bastardos Inglórios",
         date: "2019/08/09",
@@ -27,4 +28,29 @@ test("testing execute function", async () => {
     expect(result).toBe("Filme cadastrado com sucesso!")
 });
 
-//comentário para adicionar um pr novo 
+const movieGatewayMock:MovieGateway = {
+    saveMovie: jest.fn()
+};
+
+const buildCreateMovieInteractor = () =>{
+    return new CreateMovieInteractor(movieGatewayMock)
+}
+
+test("testing error message", async () => {
+
+    const CreateMoveUseCase = buildCreateMovieInteractor()
+
+    const input: CreateMovieInput = {
+        id: generateRandomId(),
+        title: "Bastardos Inglórios",
+        date: "2019/08/09",
+        lenght: "",
+        synopsis: "jfaljdsajdsalkdjs",
+        link: "url",
+        picture: "url"
+    };
+
+    expect(CreateMoveUseCase.execute(input))
+    .rejects
+    .toThrow(new MissingInformationError())
+})
