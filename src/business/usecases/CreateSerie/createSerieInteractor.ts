@@ -16,7 +16,7 @@ export class CreateSerieInteractor {
 
         const serie = new Serie(generateRandomId(), input.title, input.date, input.synopsis, input.link, input.picture, input.episodes);
 
-        if (!input.id ||
+        if (!serie.getId() ||
             !input.title ||
             !input.date ||
             !input.link ||
@@ -24,7 +24,7 @@ export class CreateSerieInteractor {
             !input.synopsis ||
             !input.episodes
         ) {
-            return new MissingInformationError();
+            throw new MissingInformationError;
         }
 
         input.episodes.map(episode => {
@@ -35,12 +35,14 @@ export class CreateSerieInteractor {
                 !episode.synopsis ||
                 !episode.title
             ) {
-                return new MissingInformationError()
+                throw new MissingInformationError
             }
         })
 
         await this.serieGateway.saveSerie(serie)
-        const response = "Serie cadastrada com sucesso!"
+        const response = {
+           success:true 
+        }
 
         return response
 

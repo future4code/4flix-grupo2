@@ -14,20 +14,22 @@ export class CreateMovieInteractor {
 
         const movie = new Movie(generateRandomId(), input.title, input.date, input.lenght, input.synopsis, input.link, input.picture);
 
-        if (!input.id ||
+        if (!movie.getId() ||
             !input.title ||
             !input.date ||
             !input.lenght ||
             !input.link ||
             !input.picture ||
             !input.synopsis
-            ) {
-            return new MissingInformationError();
+        ) {
+            throw new MissingInformationError;
         }
 
         await this.movieGateway.saveMovie(movie)
 
-        const response = "Filme cadastrado com sucesso!"
+        const response = {
+            success: true
+        }
 
         return response
 

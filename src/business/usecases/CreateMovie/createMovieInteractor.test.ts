@@ -5,7 +5,7 @@ import { generateRandomId } from '../../utils/generateRandomId';
 import { MissingInformationError } from '../../entities/error/missingInformationError';
 
 
-test("testing execute function", async () => {
+test("testing create movie use case", async () => {
     const movieGateway: MovieGateway = {
         saveMovie(movie: Movie): Promise<void> {
             return Promise.resolve()
@@ -25,7 +25,7 @@ test("testing execute function", async () => {
 
     const result = await useCase.execute(input)
 
-    expect(result).toBe("Filme cadastrado com sucesso!")
+    expect(result.success).toBe(true)
 });
 
 const movieGatewayMock:MovieGateway = {

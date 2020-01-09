@@ -5,7 +5,7 @@ import { generateRandomId } from '../../utils/generateRandomId';
 import { MissingInformationError } from '../../entities/error/missingInformationError';
 
 
-test("testing execute function", async () => {
+test("testing create serie use case", async () => {
     const serieGateway: SerieGateway = {
         saveSerie(serie: Serie): Promise<void> {
             return Promise.resolve()
@@ -34,7 +34,7 @@ test("testing execute function", async () => {
 
     const result = await useCase.execute(input)
 
-    expect(result).toBe("Serie cadastrada com sucesso!")
+    expect(result.success).toBe(true)
 });
 
 const serieGatewayMock: SerieGateway = {
