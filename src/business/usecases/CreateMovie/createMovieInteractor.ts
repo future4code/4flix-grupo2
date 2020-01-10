@@ -7,7 +7,7 @@ export class CreateMovieInteractor {
     private movieGateway: MovieGateway
     private idGenerator: string
 
-    constructor(movieGateway: MovieGateway,idGenerator: string) {
+    constructor(movieGateway: MovieGateway, idGenerator: string) {
         this.movieGateway = movieGateway
         this.idGenerator = generateRandomId()
     };
