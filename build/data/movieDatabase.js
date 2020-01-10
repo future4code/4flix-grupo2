@@ -25,12 +25,23 @@ class MovieDatabase {
             }
         });
     }
+    ;
     saveMovie(movie) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!movie.getId()) {
                 throw new Error('Não tem id');
             }
+            ;
+            yield this.connection('movies').insert(movie);
+            // query.then(result => {
+            //     res.send(result);
+            // }).catch(e => {
+            //     res.send(e);
+            //     console.log("mensagem de erro");
+            // });    };
         });
     }
+    ;
 }
 exports.MovieDatabase = MovieDatabase;
+;

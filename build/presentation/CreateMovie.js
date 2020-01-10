@@ -16,23 +16,22 @@ const express_1 = __importDefault(require("express"));
 const createMovieInteractor_1 = require("../business/usecases/CreateMovie/createMovieInteractor");
 const generateRandomId_1 = require("../business/utils/generateRandomId");
 const movieDatabase_1 = require("../data/movieDatabase");
-const app = express_1.default();
-app.use(express_1.default.json()); // Linha mágica (middleware)
-app.post('/createMovie', (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+exports.app = express_1.default();
+exports.app.use(express_1.default.json()); // Linha mágica (middleware)
+exports.app.post('/movie', (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     const movieGateway = new movieDatabase_1.MovieDatabase();
     const idGenerator = generateRandomId_1.generateRandomId();
     const useCase = new createMovieInteractor_1.CreateMovieInteractor(movieGateway, idGenerator);
     const input = {
         title: request.body.title,
-        date: request.body.date,
+        date: request.body.date_,
         lenght: request.body.lenght,
         synopsis: request.body.synopsis,
         link: request.body.link,
         picture: request.body.picture
     };
-    yield useCase.execute(input);
-    response.send({
-        Message: "Filme cadastrado com sucesso!"
-    });
+    console.log(request.body);
+    const result = yield useCase.execute(input);
+    response.send(Object.assign(Object.assign({}, result), { success: true, message: "Filme cadastrado com sucesso" }));
 }));
-exports.default = app;
+exports.default = exports.app;

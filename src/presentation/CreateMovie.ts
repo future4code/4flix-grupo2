@@ -20,10 +20,12 @@ app.post('/movie', async (request: Request, response: Response) => {
         picture: request.body.picture
     };
 
-    await useCase.execute(input);
+    console.log(request.body)
+
+    const result = await useCase.execute(input);
 
     response.send({
-        Message: "Filme cadastrado com sucesso!"
+        ...result, success: true, message: "Filme cadastrado com sucesso",
     });
 });
 

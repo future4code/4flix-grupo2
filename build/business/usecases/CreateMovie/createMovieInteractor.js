@@ -20,7 +20,7 @@ class CreateMovieInteractor {
     ;
     execute(input) {
         return __awaiter(this, void 0, void 0, function* () {
-            const movie = new Movie_1.Movie(this.idGenerator, input.title, input.date, input.lenght, input.synopsis, input.link, input.picture);
+            const movie = new Movie_1.Movie(generateRandomId_1.generateRandomId(), input.title, input.date, input.lenght, input.synopsis, input.link, input.picture);
             if (!movie.getId() ||
                 !input.title ||
                 !input.date ||

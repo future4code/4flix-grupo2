@@ -21,5 +21,7 @@ export class MovieDatabase implements MovieGateway {
         if(!movie.getId()) {
             throw new Error('Não tem id')
         };
+
+        await this.connection('movies').insert(movie);
     };
 };

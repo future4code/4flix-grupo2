@@ -14,7 +14,7 @@ export class CreateMovieInteractor {
 
     async execute(input: CreateMovieInput) {
 
-        const movie = new Movie(this.idGenerator, input.title, input.date, input.lenght, input.synopsis, input.link, input.picture);
+        const movie = new Movie(generateRandomId(), input.title, input.date, input.lenght, input.synopsis, input.link, input.picture);
 
         if (!movie.getId() ||
             !input.title ||
