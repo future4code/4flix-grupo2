@@ -5,14 +5,16 @@ import { MissingInformationError } from '../../entities/error/missingInformation
 
 export class CreateMovieInteractor {
     private movieGateway: MovieGateway
+    private idGenerator: string
 
-    constructor(movieGateway: MovieGateway) {
+    constructor(movieGateway: MovieGateway,idGenerator: string) {
         this.movieGateway = movieGateway
+        this.idGenerator = generateRandomId()
     };
 
     async execute(input: CreateMovieInput) {
 
-        const movie = new Movie(generateRandomId(), input.title, input.date, input.lenght, input.synopsis, input.link, input.picture);
+        const movie = new Movie(this.idGenerator, input.title, input.date, input.lenght, input.synopsis, input.link, input.picture);
 
         if (!movie.getId() ||
             !input.title ||
@@ -37,7 +39,6 @@ export class CreateMovieInteractor {
 };
 
 export interface CreateMovieInput {
-    id: string,
     title: string,
     date: string,
     lenght: string,

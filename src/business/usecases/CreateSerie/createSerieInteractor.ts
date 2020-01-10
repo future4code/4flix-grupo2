@@ -7,14 +7,16 @@ import { MissingInformationError } from '../../entities/error/missingInformation
 
 export class CreateSerieInteractor {
     private serieGateway: SerieGateway
+    private idGenerator: string
 
-    constructor(serieGateway: SerieGateway) {
+    constructor(serieGateway: SerieGateway, idGenerator: string) {
         this.serieGateway = serieGateway
+        this.idGenerator = idGenerator
     };
 
     async execute(input: CreateSerieInput) {
 
-        const serie = new Serie(generateRandomId(), input.title, input.date, input.synopsis, input.link, input.picture, input.episodes);
+        const serie = new Serie(this.idGenerator, input.title, input.date, input.synopsis, input.link, input.picture, input.episodes);
 
         if (!serie.getId() ||
             !input.title ||
@@ -41,7 +43,7 @@ export class CreateSerieInteractor {
 
         await this.serieGateway.saveSerie(serie)
         const response = {
-           success:true 
+            success: true
         }
 
         return response
@@ -50,7 +52,6 @@ export class CreateSerieInteractor {
 };
 
 export interface CreateSerieInput {
-    id: string,
     title: string,
     date: string,
     synopsis: string,

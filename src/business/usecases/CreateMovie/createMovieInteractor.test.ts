@@ -12,9 +12,8 @@ test("testing create movie use case", async () => {
         }
     };
 
-    const useCase = new CreateMovieInteractor(movieGateway)
+    const useCase = new CreateMovieInteractor(movieGateway,generateRandomId())
     const input: CreateMovieInput = {
-        id: generateRandomId(),
         title: "Bastardos Inglórios",
         date: "2019/08/09",
         lenght: "153 min",
@@ -33,7 +32,7 @@ const movieGatewayMock:MovieGateway = {
 };
 
 const buildCreateMovieInteractor = () =>{
-    return new CreateMovieInteractor(movieGatewayMock)
+    return new CreateMovieInteractor(movieGatewayMock,generateRandomId())
 }
 
 test("testing error message", async () => {
@@ -41,7 +40,6 @@ test("testing error message", async () => {
     const CreateMoveUseCase = buildCreateMovieInteractor()
 
     const input: CreateMovieInput = {
-        id: generateRandomId(),
         title: "Bastardos Inglórios",
         date: "2019/08/09",
         lenght: "",

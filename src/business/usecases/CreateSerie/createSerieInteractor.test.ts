@@ -12,9 +12,8 @@ test("testing create serie use case", async () => {
         }
     };
 
-    const useCase = new CreateSerieInteractor(serieGateway)
+    const useCase = new CreateSerieInteractor(serieGateway,generateRandomId())
     const input: CreateSerieInput = {
-        id: generateRandomId(),
         title: "Rick and Morty",
         date: "2019/08/09",
         synopsis: "jfaljdsajdsalkdjs",
@@ -42,7 +41,7 @@ const serieGatewayMock: SerieGateway = {
 };
 
 const buildCreateSerieInteractor = () => {
-    return new CreateSerieInteractor(serieGatewayMock)
+    return new CreateSerieInteractor(serieGatewayMock,generateRandomId())
 }
 
 test("testing error message", async () => {
@@ -50,7 +49,6 @@ test("testing error message", async () => {
     const CreateSerieUseCase = buildCreateSerieInteractor()
 
     const input: CreateSerieInput = {
-        id: generateRandomId(),
         title: "Rick and Morty",
         date: "2019/08/09",
         synopsis: "jfaljdsajdsalkdjs",
@@ -77,7 +75,6 @@ test("testing episodes empty properties", () => {
     const CreateSerieUseCase = buildCreateSerieInteractor()
 
     const input: CreateSerieInput = {
-        id: generateRandomId(),
         title: "Rick and Morty",
         date: "2019/08/09",
         synopsis: "jfaljdsajdsalkdjs",
