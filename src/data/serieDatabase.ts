@@ -1,9 +1,9 @@
-import knex from 'knex'
-import { Movie } from '../business/entities/Movie'
-import { MovieGateway } from '../business/gateways/MovieGateway'
+import { SerieGateway } from './../business/gateways/SerieGateway';
+import knex from "knex";
+import { Serie } from '../business/entities/Serie';
 
-export class MovieDatabase implements MovieGateway {
-    private connection: knex
+export class SerieDatabase implements SerieGateway {
+    private connection: knex; 
 
     constructor() {
         this.connection = knex({
@@ -17,11 +17,9 @@ export class MovieDatabase implements MovieGateway {
         });
     };
 
-    async saveMovie(movie:Movie):Promise<void> {
-        if(!movie.getId()) {
+    async saveSerie(serie: Serie):Promise<void> {
+        if(!serie.getId()) {
             throw new Error('Não tem id')
         };
-
-        await this.connection('movies').insert(movie);
     };
 };
